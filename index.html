@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,35 @@
     <title>My Project</title>
     <link rel="stylesheet" href="./assets/bootstrap-5.2.1-dist/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="./assets/bootstrap-5.2.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/fontawesome-free-6.2.0-web/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-<body>
-    <h1 class="container text-center my-3 bg-danger py-3 text-white">Hello Ehsan</h1>
 
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-danger px-2 flex-row-reverse">
+        <a class="navbar-brand" href="https://github.com/EhsanAryan" target="_blank">
+            <i class="fa-solid fa-user fs-2 hoverable-text"></i>
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#ide-div">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="offcanvas offcanvas-start bg-danger" id="ide-div">
+            <a class="btn-close d-md-none ms-2 mt-2" href="#" data-bs-dismiss="offcanvas"></a>
+            <div class="offcanvas-body flex-md-row align-items-center justify-content-start">
+                <ul class="navbar-nav text-center fs-5">
+                    <li><a class="nav-link" href="./user.html">Home</a></li>
+                    <li><a class="nav-link" href="./user.html">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 
 
     <script src="./assets/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
+
 </html>
