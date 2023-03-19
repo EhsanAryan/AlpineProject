@@ -1,12 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User</title>
+    <link rel="stylesheet" href="./assets/bootstrap-5.2.1-dist/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="./assets/bootstrap-5.2.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/utils.css">
 </head>
+
 <body>
-    <h1 class="text-center"><a href="./index.html">This is user page</a></h1>
+    <!-- #region navbar -->
+    <nav class="navbar navbar-expand-md px-2 flex-row-reverse top-navbar">
+        <a class="navbar-brand" href="https://github.com/EhsanAryan">
+            <i class="fa-solid fa-user fs-2 hoverable-text"></i>
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#ide-div">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="offcanvas offcanvas-start" id="ide-div">
+            <i class="fa-solid fa-times close-nav-menu-icon text-white ms-auto fs-5" data-bs-dismiss="offcanvas"></i>
+            <div class="offcanvas-body flex-md-row align-items-center justify-content-start p-0">
+                <ul class="navbar-nav">
+                    <li class="d-block d-md-none">
+                        <div class="menu-header px-4">
+                            <img class="avatar-img rounded-circle mt-3" src="./assets/Pics/avatar/user1.jpg" />
+                            <div class="mt-4 text-white fw-bolder">
+                                <a href="https://github.com/EhsanAryan" class="no-link">
+                                    Ehsan Aryan
+                                </a>
+                            </div>
+                            <div class="mt-2 text-white">
+                                <a href="mailto:ehsan.aryan2001@gmail.com" class="no-link">
+                                    ehsan.aryan2001@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="my-2 px-4 d-block d-md-none">
+                        <a href="https://github.com/EhsanAryan" class="nav-link d-flex align-items-center">
+                            <i class="fa-brands fa-github fs-2 me-3"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <div class="divider"></div>
+                    </li>
+                    <li class="mt-3 mb-2 px-4 d-block d-md-none">
+                        <div class="menu-section-header">
+                            Pages:
+                        </div>
+                    </li>
+                    <li class="px-4">
+                        <a class="nav-link" href="./index.html">
+                            Home
+                        </a>
+                    </li>
+                    <li class="px-4">
+                        <a class="nav-link" href="./user.html">
+                            User
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #endregion navbar -->
+
+    <!-- #region add user section -->
+    <section class="mt-5 pt-md-4 px-3 row">
+        <div class="text-center col-12 col-md-3 col-lg-3">
+            <button type="button" class="btn btn-primary rounded-pill w-100" id="add-user-btn">
+                <i class="fa-solid fa-add me-1"></i>
+                Add User
+            </button>
+        </div>
+        <div class="mt-2 mt-md-0 mx-auto position-relative col-12 col-md-9 col-lg-6">
+            <input type="text" class="form-control" id="search-input" placeholder="Search">
+            <i class="fa-solid fa-search search-icon"></i>
+        </div>
+        <div class="d-none d-lg-block col-lg-3"></div>
+    </section>
+    <!-- #endregion add user section -->
+
+    <!-- #region users list section -->
+    <section class="mt-4 w-100 px-md-3">
+        <div class="accordion" id="users-list">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#user-1">
+                        <i class="fa-solid fa-user me-2"></i>
+                        Ehsan Aryan
+                    </button>
+                </h2>
+                <div id="user-1" class="accordion-collapse collapse" data-bs-parent="#users-list">
+                    <div class="accordion-body">
+                        <div class="my-1">
+                            <span class="fw-bold me-1">Username :</span>
+                            <span>EhsanAryan</span>
+                        </div>
+                        <div class="my-1">
+                            <span class="fw-bold me-1">Email :</span>
+                            <span>ehsan.aryan2001@gmail.com</span>
+                        </div>
+                        <div class="my-1">
+                            <span class="fw-bold me-1">Address :</span>
+                            <span>Qom - example Street - ...</span>
+                        </div>
+                        <div class="my-1">
+                            <span class="fw-bold me-1">Actions :</span>
+                            <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
+                            <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- #endregion users list section -->
+
+
+
+    <script src="./assets/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/main.js"></script>
 </body>
+
 </html>
