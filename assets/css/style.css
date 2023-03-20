@@ -2,6 +2,7 @@
     --fast-transition: all 0.15s ease-in-out;
     --medium-transition: all 0.25s ease-in-out;
     --slow-transition: all 0.325s ease-in-out;
+    --primary-color: #0d6efd;
 }
 
 /* Start hidden navbar menu */
@@ -59,32 +60,32 @@
 
 
 /* Start add user section */
-#search-input {
+.my-input {
     border: none;
+    width: 100%;
     border-bottom: 2px solid black !important;
     border-radius: 0;
-    padding-left: 20px;
+    padding: 0.5rem 0.75rem 0.5rem 1.55rem;
     transition: var(--fast-transition);
 }
 
-#search-input:focus {
-    border-bottom: 2px solid #0d6efd !important;
+.my-input:focus {
+    border-bottom: 2px solid var(--primary-color) !important;
     box-shadow: none !important;
+    outline: none !important;
 }
 
-#search-input + i {
-    transition: var(--fast-transition);
-}
-
-#search-input:focus + i {
-    color: #0d6efd;
-}
-
-.search-icon {
+.input-icon {
     position: absolute;
-    bottom: 7px;
+    left: 12px;
+    top: 12px;
     width: 20px;
     height: 20px;
+    transition: var(--fast-transition);
+}
+
+.my-input:focus + .input-icon {
+    color: var(--primary-color);
 }
 /* End add user section */
 
@@ -96,6 +97,62 @@
 .accordion-button {
     box-shadow: none !important;
 }
+
+.pagination-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0px 0px 15px gray;
+}
+
+#items-count-input {
+    border: none !important;   
+    border-bottom: 1px solid var(--primary-color) !important;
+}
+
+#items-count-input:focus {
+    outline: none !important;
+}
 /* End users list section */
+
+/* Start add user modal */
+.add-user-modal-back {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 999;
+    transition: var(--medium-transition);
+}
+
+.add-user-modal-box {
+    position: fixed;
+    height: 70vh;
+    bottom: -70vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    box-shadow: 0px 0px 15px var(--primary-color);
+    z-index: 1000;
+    transform: scale(0.5); 
+    transition: var(--medium-transition);
+}
+
+.add-user-modal-box.show {
+    bottom: 0;
+    transform: scale(1);
+}
+
+@media (min-width: 992px) {
+    .add-user-modal-box {
+        max-width: 800px;
+    }
+}
+/* End add user modal */
 
 

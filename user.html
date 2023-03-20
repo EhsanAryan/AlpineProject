@@ -25,7 +25,8 @@
         </button>
 
         <div class="offcanvas offcanvas-start" id="ide-div">
-            <i class="fa-solid fa-times close-nav-menu-icon text-white ms-auto fs-5" data-bs-dismiss="offcanvas"></i>
+            <i class="fa-solid fa-times close-nav-menu-icon text-white ms-auto fs-5 pointer"
+                data-bs-dismiss="offcanvas"></i>
             <div class="offcanvas-body flex-md-row align-items-center justify-content-start p-0">
                 <ul class="navbar-nav">
                     <li class="d-block d-md-none">
@@ -74,24 +75,25 @@
     <!-- #endregion navbar -->
 
     <!-- #region add user section -->
-    <section class="mt-5 pt-md-4 px-3 row">
+    <section class="mt-5 pt-md-4 row container mx-auto">
         <div class="text-center col-12 col-md-3 col-lg-3">
-            <button type="button" class="btn btn-primary rounded-pill w-100" id="add-user-btn">
+            <button type="button" id="add-user-btn" class="btn btn-primary rounded-pill w-100">
                 <i class="fa-solid fa-add me-1"></i>
                 Add User
             </button>
         </div>
-        <div class="mt-2 mt-md-0 mx-auto position-relative col-12 col-md-9 col-lg-6">
-            <input type="text" class="form-control" id="search-input" placeholder="Search">
-            <i class="fa-solid fa-search search-icon"></i>
+        <div class="mt-4 mt-md-0 mx-auto position-relative col-12 col-md-9 col-lg-7">
+            <input type="text" class="my-input" id="search" placeholder="Search">
+            <i class="fa-solid fa-search input-icon"></i>
         </div>
-        <div class="d-none d-lg-block col-lg-3"></div>
+        <div class="d-none d-lg-block col-lg-2"></div>
     </section>
     <!-- #endregion add user section -->
 
     <!-- #region users list section -->
-    <section class="mt-4 w-100 px-md-3">
-        <div class="accordion" id="users-list">
+    <section class="mt-4">
+        <!-- #region mobile user list  -->
+        <div class="accordion d-md-none" id="users-list">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#user-1">
@@ -122,6 +124,94 @@
                 </div>
             </div>
         </div>
+        <!-- #endregion mobile user list  -->
+
+        <!-- #region desktop user list  -->
+        <div class="container mt-5 table-responsive d-none d-md-block">
+            <table class="table table-bordered table-striped table-hover text-center align-middle">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Ehsan Aryan</td>
+                        <td>EhsanAryan</td>
+                        <td>ehsan.aryan2001@gmail.com</td>
+                        <td>Qom - example street - ...</td>
+                        <td>
+                            <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
+                            <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- #endregion desktop user list  -->
+
+        <!-- #region pagination -->
+        <div class="pagination-container container d-flex justify-content-between align-items-center
+        px-3 py-3 rounde-top-30">
+            <div class="pagination-items-count d-flex align-items-center">
+                show
+                <span>
+                    <input type="number" id="items-count-input" name="items-count-input" value="10"
+                        class="text-primary max-width-45 text-center mx-1 p-0" min="1" max="20" />
+                </span>
+                of
+                <span class="mx-1 text-primary">
+                    100
+                </span>
+            </div>
+
+            <div class="pagination-buttons">
+                <button class="btn btn-primary rounded-circle mx-1">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button class="btn btn-primary rounded-circle mx-1">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <!-- #endregion pagination -->
+
+        <!-- #region add user modal -->
+        <div class="add-user-modal-back d-none">
+            <div class="add-user-modal-box container bg-white rounde-top-30 px-3 pt-4 text-center">
+                <h2>
+                    <i class="fa-solid fa-user-plus me-1"></i>
+                    Add User
+                </h2>
+                <form class="add-user-form row">
+                    <div class="position-relative col-12 my-3">
+                        <input type="text" class="my-input" id="name" placeholder="Name">
+                        <i class="fa-solid fa-user input-icon"></i>
+                    </div>
+                    <div class="position-relative col-12 my-3">
+                        <input type="text" class="my-input" id="username" placeholder="Username">
+                        <i class="fa-solid fa-fingerprint input-icon"></i>
+                    </div>
+                    <div class="position-relative col-12 my-3">
+                        <input type="text" class="my-input" id="email" placeholder="example@test.com">
+                        <i class="fa-solid fa-envelope input-icon"></i>
+                    </div>
+                    <div class="col-12 mt-5 mb-2">
+                        <button type="button" class="btn btn-primary w-100 max-width-250">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- #endregion add user modal -->
+
     </section>
     <!-- #endregion users list section -->
 
