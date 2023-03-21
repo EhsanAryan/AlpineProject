@@ -24,4 +24,30 @@ document.addEventListener("DOMContentLoaded", () => {
         ev.stopPropagation();
     });
 
+    setTimeout(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => {
+            return response.json();
+        })
+        .then((users) => {
+            let tableRows = "";
+            for(let user of users) {
+                const userRow = `
+                <tr>
+                    <th scope="row">${user.id}</th>
+                    <td>${user.name}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.address.city} ${user.address.street} ${user.address.suite}</td>
+                    <td>
+                        <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
+                        <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
+                    </td>
+                </tr>`
+                tableRows += userRow;
+                document.querySelector("#users-table tbody").innerHTML = tableRows;
+            }
+        })
+    }, 3000);
+
 });

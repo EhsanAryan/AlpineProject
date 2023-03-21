@@ -91,7 +91,7 @@
     <!-- #endregion add user section -->
 
     <!-- #region users list section -->
-    <section class="mt-4">
+    <section class="mt-4 mb-5rem">
         <!-- #region mobile user list  -->
         <div class="accordion d-md-none" id="users-list">
             <div class="accordion-item">
@@ -126,9 +126,9 @@
         </div>
         <!-- #endregion mobile user list  -->
 
-        <!-- #region desktop user list  -->
+        <!-- #region desktop user table  -->
         <div class="container mt-5 table-responsive d-none d-md-block">
-            <table class="table table-bordered table-striped table-hover text-center align-middle">
+            <table class="table table-bordered table-striped table-hover text-center align-middle" id="users-table">
                 <thead class="table-secondary">
                     <tr>
                         <th scope="col">#</th>
@@ -141,7 +141,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
+                        <!-- <th scope="row">1</th>
                         <td>Ehsan Aryan</td>
                         <td>EhsanAryan</td>
                         <td>ehsan.aryan2001@gmail.com</td>
@@ -149,15 +149,20 @@
                         <td>
                             <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
                             <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
+                        </td> -->
+                        <td colspan="6">
+                            <div class="spinner-grow">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!-- #endregion desktop user list  -->
+        <!-- #endregion desktop user table  -->
 
         <!-- #region pagination -->
-        <div class="pagination-container container d-flex justify-content-between align-items-center
+        <div class="pagination-container container bg-white d-flex justify-content-between align-items-center
         px-3 py-3 rounde-top-30">
             <div class="pagination-items-count d-flex align-items-center">
                 show
