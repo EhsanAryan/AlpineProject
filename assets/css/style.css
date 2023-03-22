@@ -89,7 +89,7 @@
 }
 /* End add user section */
 
-/* Start users list section */
+/* Start mobile users list */
 .accordion-collapse:is(.show , .collapsing) {
     background-color: #e7f1ff;
 }
@@ -97,7 +97,15 @@
 .accordion-button {
     box-shadow: none !important;
 }
+/* End mobile users list */
 
+/* Start desktop users table */
+#users-table tbody tr:hover {
+    background-color: #0d6efd33 !important;
+}
+/* End desktop users table */
+
+/* Start users list section */
 .pagination-container {
     position: fixed;
     bottom: 0;

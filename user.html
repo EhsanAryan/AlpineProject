@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./assets/css/utils.css">
 </head>
 
-<body>
+<body x-data="usersData()">
     <!-- #region navbar -->
     <nav class="navbar navbar-expand-md px-2 flex-row-reverse top-navbar">
         <a class="navbar-brand" href="https://github.com/EhsanAryan">
@@ -91,8 +91,8 @@
     <!-- #endregion add user section -->
 
     <!-- #region users list section -->
-    <section class="mt-4 mb-5rem">
-        <!-- #region mobile user list  -->
+    <section class="mt-4 mb-6rem" x-init="getUsers()">
+        <!-- #region mobile users list  -->
         <div class="accordion d-md-none" id="users-list">
             <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -124,9 +124,9 @@
                 </div>
             </div>
         </div>
-        <!-- #endregion mobile user list  -->
+        <!-- #endregion mobile users list  -->
 
-        <!-- #region desktop user table  -->
+        <!-- #region desktop users table  -->
         <div class="container mt-5 table-responsive d-none d-md-block">
             <table class="table table-bordered table-striped table-hover text-center align-middle" id="users-table">
                 <thead class="table-secondary">
@@ -140,26 +140,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <!-- <th scope="row">1</th>
-                        <td>Ehsan Aryan</td>
-                        <td>EhsanAryan</td>
-                        <td>ehsan.aryan2001@gmail.com</td>
-                        <td>Qom - example street - ...</td>
-                        <td>
-                            <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
-                            <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
-                        </td> -->
+                    <tr x-show="users.length === 0">
                         <td colspan="6">
-                            <div class="spinner-grow">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
+                            <div class="spinner-border my-1 text-primary"></div>
+                            <div class="text-primary">Loading...</div>
                         </td>
                     </tr>
+                    <template x-for="(user, index) in users" :key="user.id + '_' + index">
+                        <tr>
+                            <th scope="row" x-text="user.id"></th>
+                            <td x-text="user.name"></td>
+                            <td x-text="user.username"></td>
+                            <td x-text="user.email"></td>
+                            <td x-text="user.address.city + '_' + user.address.street + '_' + user.address.suite"></td>
+                            <td>
+                                <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"></i>
+                                <i class="fa-solid fa-trash text-danger mx-1 pointer hoverable-text scalable"></i>
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
-        <!-- #endregion desktop user table  -->
+        <!-- #endregion desktop users table  -->
 
         <!-- #region pagination -->
         <div class="pagination-container container bg-white d-flex justify-content-between align-items-center
@@ -221,7 +224,9 @@
     <!-- #endregion users list section -->
 
 
-
+    <script src="./assets//axios-v1.3.4/axios.min.js"></script>
+    <script defer src="./assets/alpinejs-3/alpinejs-3.js"></script>
+    <script src="./assets/js/alpineGlobals/usersGlobalData.js"></script>
     <script src="./assets/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/main.js"></script>
 </body>
