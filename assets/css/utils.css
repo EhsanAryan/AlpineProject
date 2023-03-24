@@ -2,6 +2,7 @@
     --fast-transition: all 0.15s ease-in-out;
     --medium-transition: all 0.25s ease-in-out;
     --slow-transition: all 0.325s ease-in-out;
+    --primary-color: #0d6efd;
 }
 
 .hoverable {
@@ -9,7 +10,7 @@
 }
 
 .hoverable:hover {
-    box-shadow: 0px 0px 15px black;
+    box-shadow: 0px 0px 15px #2f2f2fd2;
 }
 
 .hoverable-text {
@@ -17,7 +18,7 @@
 }
 
 .hoverable-text:hover {
-    text-shadow: 0px 0px 15px black;
+    text-shadow: 0px 0px 15px #2f2f2fd2;
 }
 
 .scalable {

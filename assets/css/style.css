@@ -134,9 +134,7 @@
     height: 100vh;
     top: 0;
     left: 0;
-    opacity: 0;
     z-index: 999;
-    transition: var(--medium-transition);
 }
 
 .add-user-modal-box {
@@ -159,7 +157,7 @@
 
 @media (min-width: 992px) {
     .add-user-modal-box {
-        max-width: 800px;
+        max-width: 800px !important;
     }
 }
 /* End add user modal */
