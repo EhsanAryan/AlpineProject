@@ -75,7 +75,7 @@
     <!-- #endregion navbar -->
 
     <!-- #region add user section -->
-    <section class="mt-5 pt-md-4 row container mx-auto">
+    <section class="mt-5 pt-md-3 row container mx-auto">
         <div class="text-center col-12 col-md-3 col-lg-3">
             <button type="button" id="add-user-btn" class="btn btn-primary rounded-pill w-100"
             @click="showAddUserModal = true">
@@ -84,7 +84,8 @@
             </button>
         </div>
         <div class="mt-4 mt-md-0 mx-auto position-relative col-12 col-md-9 col-lg-7">
-            <input type="text" class="my-input" id="search" placeholder="Search">
+            <input type="text" class="my-input" id="search" placeholder="Search" 
+            :value="searchChar" @input="searchUsers" />
             <i class="fa-solid fa-search input-icon"></i>
         </div>
         <div class="d-none d-lg-block col-lg-2"></div>
@@ -196,13 +197,14 @@
                 <span class="ms-2 text-primary" x-text="users.length"></span>
             </div>
 
-            <div class="pagination-buttons">
-                <button class="btn btn-primary rounded-circle mx-1" :disabled="currentPage == 1"
-                @click="decreaseCurrentPage">
+            <div class="pagination-buttons d-flex justify-content-center align-items-center">
+                <button class="btn btn-primary rounded-circle" :disabled="currentPage == 1"
+                @click="prevPage">
                     <i class="fa-solid fa-chevron-left"></i>
                 </button>
-                <button class="btn btn-primary rounded-circle mx-1" :disabled="currentPage == pagesCount"
-                @click="increaseCurrentPage">
+                <div class="page-count text-primary mx-2" x-text="currentPage"></div>
+                <button class="btn btn-primary rounded-circle" :disabled="currentPage == pagesCount || pagesCount == 0"
+                @click="nextPage">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>

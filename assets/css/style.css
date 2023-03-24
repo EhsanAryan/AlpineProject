@@ -124,6 +124,16 @@
 #items-count-input:focus {
     outline: none !important;
 }
+
+.page-count {
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /* End users list section */
 
 /* Start add user modal */

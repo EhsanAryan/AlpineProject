@@ -1,5 +1,6 @@
 document.addEventListener("alpine:init", () => {
     Alpine.data("usersData", () => ({
+        initUsers: [],
         users: [],
         pageUsers: [],
         isLoading: false,
@@ -7,11 +8,13 @@ document.addEventListener("alpine:init", () => {
         pagesCount: 1,
         currentPage: 1,
         itemsCount: 4,
+        searchChar: "",
         getUsers() {
             this.isLoading = true;
             axios.get("https://jsonplaceholder.typicode.com/users")
             .then((response) => {
                 if(response.status === 200) {
+                    this.initUsers = response.data;
                     this.users = response.data;
                     this.setPagination();
                 } else {
@@ -25,12 +28,13 @@ document.addEventListener("alpine:init", () => {
         },
         setPagination() {
             this.pagesCount = Math.ceil(this.users.length / this.itemsCount);
+            console.log(this.pagesCount);
             const startIndex = (this.currentPage - 1) * this.itemsCount;
             const endIndex = this.currentPage * this.itemsCount;
             this.pageUsers = this.users.slice(startIndex, endIndex);
         },
         setItemsCount(ev) {
-            const itemsCnt = Number(ev.target.value);
+            const itemsCnt = Math.ceil(Number(ev.target.value));
             if(itemsCnt < 1) {
                 this.itemsCount = 1;
             }
@@ -40,14 +44,21 @@ document.addEventListener("alpine:init", () => {
             else {
                 this.itemsCount = itemsCnt;
             }
+            this.currentPage = 1;
             this.setPagination();
         },
-        increaseCurrentPage() {
-            this.currentPage = this.currentPage + 1;
+        nextPage() {
+            this.currentPage++;
             this.setPagination();
         },
-        decreaseCurrentPage() {
-            this.currentPage = this.currentPage - 1;
+        prevPage() {
+            this.currentPage--;
+            this.setPagination();
+        },
+        searchUsers(ev) {
+            this.searchChar = ev.target.value;
+            this.users = [...this.initUsers].filter(u => u.name.toLowerCase().includes(this.searchChar.toLowerCase()));
+            this.currentPage = 1;
             this.setPagination();
         },
         deleteUser(userId) {
