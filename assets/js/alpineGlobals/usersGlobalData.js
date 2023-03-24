@@ -7,8 +7,13 @@ document.addEventListener("alpine:init", () => {
         showAddUserModal: false,
         pagesCount: 1,
         currentPage: 1,
-        itemsCount: 4,
+        itemsCount: 5,
         searchChar: "",
+        newUserInfo: {
+            name: "",
+            username: "",
+            email: ""
+        },
         getUsers() {
             this.isLoading = true;
             axios.get("https://jsonplaceholder.typicode.com/users")
@@ -18,17 +23,26 @@ document.addEventListener("alpine:init", () => {
                     this.users = response.data;
                     this.setPagination();
                 } else {
-                    alert(`Error!\nStatus code: ${response.status}`);
+                    swal({
+                        title: `Error ${response.status}`,
+                        text: "An error occurred!",
+                        icon: "error"
+                    });
                 }
             })
             .catch((error) => {
-                alert(error);
+                swal({
+                    title: "Error!",
+                    text: error.message,
+                    icon: "error"
+                });
+            })
+            .finally(() => {
+                this.isLoading = false;
             });
-            this.isLoading = false;
         },
         setPagination() {
             this.pagesCount = Math.ceil(this.users.length / this.itemsCount);
-            console.log(this.pagesCount);
             const startIndex = (this.currentPage - 1) * this.itemsCount;
             const endIndex = this.currentPage * this.itemsCount;
             this.pageUsers = this.users.slice(startIndex, endIndex);
@@ -55,14 +69,87 @@ document.addEventListener("alpine:init", () => {
             this.currentPage--;
             this.setPagination();
         },
-        searchUsers(ev) {
-            this.searchChar = ev.target.value;
-            this.users = [...this.initUsers].filter(u => u.name.toLowerCase().includes(this.searchChar.toLowerCase()));
+        handleSearchUsers() {
+            const value = this.searchChar.toLowerCase();
+            this.users = [...this.initUsers].filter(u => u.name.toLowerCase().includes(value) || 
+                u.username.toLowerCase().includes(value) || u.email.toLowerCase().includes(value));
             this.currentPage = 1;
             this.setPagination();
         },
+        handleAddNewUser() {
+            axios.post("https://jsonplaceholder.typicode.com/users", this.newUserInfo)
+            .then((response) => {
+                if(response.status === 201) {
+                    this.initUsers.push(response.data);
+                    swal({
+                        title: `Done!`,
+                        text: "New user has been added.",
+                        icon: "success"
+                    });
+                    this.newUserInfo = {
+                        name: "",
+                        username: "",
+                        email: ""
+                    };
+                    this.showAddUserModal = false;
+                    this.currentPage = 1;
+                    this.searchChar = "";
+                    this.handleSearchUsers();
+                } else {
+                    swal({
+                        title: `Error ${response.status}`,
+                        text: "An error occurred!",
+                        icon: "error"
+                    });
+                }
+            })
+            .catch((error) => {
+                swal({
+                    title: "Error!",
+                    text: error.message,
+                    icon: "error"
+                });
+            });
+        },
         deleteUser(userId) {
-            console.log(`Delete: ${userId}`);
+            swal({
+                title: "Warning",
+                text: "Are you sure?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            })
+            .then((result) => {
+                if(result) {
+                    axios.delete(`https://jsonplaceholder.typicode.com/users/${userId}`)
+                    .then((response) => {
+                        if(response.status === 200) {
+                            this.initUsers = this.initUsers.filter(u => u.id != userId);
+                            swal({
+                                title: `Done!`,
+                                text: "User has been deleted.",
+                                icon: "success"
+                            });
+                            this.currentPage = 1;
+                            this.searchChar = "";
+                            this.handleSearchUsers();
+                        } else {
+                            swal({
+                                title: `Error ${response.status}`,
+                                text: "An error occurred!",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        swal({
+                            title: "Error!",
+                            text: error.message,
+                            icon: "error"
+                        });
+                    });
+                }
+            });
         },
         editUser(userId) {
             console.log(`Edit: ${userId}`);

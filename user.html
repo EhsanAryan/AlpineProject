@@ -85,7 +85,7 @@
         </div>
         <div class="mt-4 mt-md-0 mx-auto position-relative col-12 col-md-9 col-lg-7">
             <input type="text" class="my-input" id="search" placeholder="Search" 
-            :value="searchChar" @input="searchUsers" />
+            x-model="searchChar" @input="handleSearchUsers" />
             <i class="fa-solid fa-search input-icon"></i>
         </div>
         <div class="d-none d-lg-block col-lg-2"></div>
@@ -191,7 +191,7 @@
                     <input type="number" id="items-count-input" name="items-count-input" 
                     class="text-primary max-width-45 text-center mx-1 p-0" 
                     min="1" :max="users.length < 12 ? users.length : 12" 
-                    :value="itemsCount" @change="setItemsCount" />
+                    x-model="itemsCount" @input="setItemsCount" />
                 </span>
                 items of
                 <span class="ms-2 text-primary" x-text="users.length"></span>
@@ -211,43 +211,49 @@
         </div>
         <!-- #endregion pagination -->
 
-        <!-- #region add user modal -->
-        <div class="add-user-modal-back" x-show="showAddUserModal" x-transition.opacity.duration.250ms
-        @click="showAddUserModal = false">
-            <div class="add-user-modal-box container bg-white rounde-top-30 px-4 pt-4 text-center"
-            :class="{ 'show' : showAddUserModal }" @click.stop="">
-                <h2>
-                    <i class="fa-solid fa-user-plus me-1"></i>
-                    Add User
-                </h2>
-                <form class="add-user-form row">
-                    <div class="position-relative col-12 my-3">
-                        <input type="text" class="my-input" id="name" placeholder="Name">
-                        <i class="fa-solid fa-user input-icon"></i>
-                    </div>
-                    <div class="position-relative col-12 my-3">
-                        <input type="text" class="my-input" id="username" placeholder="Username">
-                        <i class="fa-solid fa-fingerprint input-icon"></i>
-                    </div>
-                    <div class="position-relative col-12 my-3">
-                        <input type="text" class="my-input" id="email" placeholder="example@test.com">
-                        <i class="fa-solid fa-envelope input-icon"></i>
-                    </div>
-                    <div class="col-12 mt-5 mb-2">
-                        <button type="button" class="btn btn-primary w-100 max-width-250">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- #endregion add user modal -->
-
+        
     </section>
     <!-- #endregion users list section -->
+      
+    <!-- #region add user modal -->
+    <div class="add-user-modal-back" x-show="showAddUserModal" x-transition.opacity.duration.250ms
+    @click="showAddUserModal = false">
+        <div class="add-user-modal-box container bg-white rounde-top-30 px-4 pt-4 text-center"
+        :class="{ 'show' : showAddUserModal }" @click.stop="">
+            <h2>
+                <i class="fa-solid fa-user-plus me-1"></i>
+                Add User
+            </h2>
+            <form class="add-user-form row">
+                <div class="position-relative col-12 my-3">
+                    <input type="text" class="my-input" id="name" placeholder="Name"
+                    x-model="newUserInfo.name" />
+                    <i class="fa-solid fa-user input-icon"></i>
+                </div>
+                <div class="position-relative col-12 my-3">
+                    <input type="text" class="my-input" id="username" placeholder="Username" 
+                    x-model="newUserInfo.username" />
+                    <i class="fa-solid fa-fingerprint input-icon"></i>
+                </div>
+                <div class="position-relative col-12 my-3">
+                    <input type="email" class="my-input" id="email" placeholder="example@test.com" 
+                    x-model="newUserInfo.email" />
+                    <i class="fa-solid fa-envelope input-icon"></i>
+                </div>
+                <div class="col-12 mt-5 mb-2">
+                    <button type="button" class="btn btn-primary w-100 max-width-250"
+                    @click="handleAddNewUser">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- #endregion add user modal -->
 
 
-    <script src="./assets//axios-v1.3.4/axios.min.js"></script>
+    <script src="./assets/axios-v1.3.4/axios.min.js"></script>
+    <script src="./assets/sweetalert-v2.1.2/sweetalert.js"></script>
     <script defer src="./assets/alpinejs-3/alpinejs-3.js"></script>
     <script src="./assets/js/alpineGlobals/usersGlobalData.js"></script>
     <script src="./assets/bootstrap-5.2.1-dist/js/bootstrap.bundle.min.js"></script>
