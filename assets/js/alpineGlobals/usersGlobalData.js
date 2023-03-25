@@ -14,6 +14,9 @@ document.addEventListener("alpine:init", () => {
             username: "",
             email: ""
         },
+        formIsLoading: false,
+        editMode: false,
+        editUserId: "",
         getUsers() {
             this.isLoading = true;
             axios.get("https://jsonplaceholder.typicode.com/users")
@@ -40,6 +43,11 @@ document.addEventListener("alpine:init", () => {
             .finally(() => {
                 this.isLoading = false;
             });
+        },
+        handleHideAddUserModal() {
+            this.showAddUserModal = false;
+            this.editMode = false;
+            this.resetForm();
         },
         setPagination() {
             this.pagesCount = Math.ceil(this.users.length / this.itemsCount);
@@ -77,39 +85,84 @@ document.addEventListener("alpine:init", () => {
             this.setPagination();
         },
         handleAddNewUser() {
-            axios.post("https://jsonplaceholder.typicode.com/users", this.newUserInfo)
-            .then((response) => {
-                if(response.status === 201) {
-                    this.initUsers.push(response.data);
+            this.formIsLoading = true;
+            if(this.editMode) {
+                axios.put(`https://jsonplaceholder.typicode.com/users/${this.editUserId}`, this.newUserInfo)
+                .then((response) => {
+                    if(response.status === 200) {
+                        swal({
+                            title: `Done!`,
+                            text: "User has been edited.",
+                            icon: "success"
+                        });
+                        this.initUsers = this.initUsers.map(u => {
+                            if(u.id == this.editUserId) {
+                                return {
+                                    ...u,
+                                    name: response.data.name,
+                                    username: response.data.username,
+                                    email: response.data.email
+                                };
+                            }
+                            return u;
+                        });
+                        this.editMode = false;
+                        this.editUserId = "";
+                        this.resetForm();
+                        this.showAddUserModal = false;
+                        this.searchChar = "";
+                        this.handleSearchUsers();
+                    } else {
+                        swal({
+                            title: `Error ${response.status}`,
+                            text: "An error occurred!",
+                            icon: "error"
+                        });
+                    }
+                })
+                .catch((error) => {
                     swal({
-                        title: `Done!`,
-                        text: "New user has been added.",
-                        icon: "success"
-                    });
-                    this.newUserInfo = {
-                        name: "",
-                        username: "",
-                        email: ""
-                    };
-                    this.showAddUserModal = false;
-                    this.currentPage = 1;
-                    this.searchChar = "";
-                    this.handleSearchUsers();
-                } else {
-                    swal({
-                        title: `Error ${response.status}`,
-                        text: "An error occurred!",
+                        title: "Error!",
+                        text: error.message,
                         icon: "error"
                     });
-                }
-            })
-            .catch((error) => {
-                swal({
-                    title: "Error!",
-                    text: error.message,
-                    icon: "error"
+                })
+                .finally(() => {
+                    this.formIsLoading = false;
                 });
-            });
+            } else {
+                axios.post("https://jsonplaceholder.typicode.com/users", this.newUserInfo)
+                .then((response) => {
+                    if(response.status === 201) {
+                        this.initUsers.push(response.data);
+                        swal({
+                            title: `Done!`,
+                            text: "New user has been added.",
+                            icon: "success"
+                        });
+                        this.resetForm();
+                        this.showAddUserModal = false;
+                        this.searchChar = "";
+                        this.handleSearchUsers();
+                    } else {
+                        swal({
+                            title: `Error ${response.status}`,
+                            text: "An error occurred!",
+                            icon: "error"
+                        });
+                    }
+                })
+                .catch((error) => {
+                    swal({
+                        title: "Error!",
+                        text: error.message,
+                        icon: "error"
+                    });
+                })
+                .finally(() => {
+                    this.formIsLoading = false;
+                });
+            }
         },
         deleteUser(userId) {
             swal({
@@ -130,7 +183,6 @@ document.addEventListener("alpine:init", () => {
                                 text: "User has been deleted.",
                                 icon: "success"
                             });
-                            this.currentPage = 1;
                             this.searchChar = "";
                             this.handleSearchUsers();
                         } else {
@@ -152,7 +204,31 @@ document.addEventListener("alpine:init", () => {
             });
         },
         editUser(userId) {
-            console.log(`Edit: ${userId}`);
+            axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`)
+            .then((response) => {
+                this.newUserInfo = {
+                    name: response.data.name,
+                    username: response.data.username,
+                    email: response.data.email
+                };
+                this.showAddUserModal = true;
+                this.editMode = true;
+                this.editUserId = userId;
+            })
+            .catch((error) => {
+                swal({
+                    title: "Error!",
+                    text: error.message,
+                    icon: "error"
+                });
+            });
+        },
+        resetForm() {
+            this.newUserInfo = {
+                name: "",
+                username: "",
+                email: ""
+            };
         }
     }));
 });

@@ -121,7 +121,8 @@
                             </div>
                             <div class="my-1">
                                 <span class="fw-bold me-1">Address :</span>
-                                <span x-text="user.address.city + ' - ' + user.address.street + ' - ' + user.address.suite">
+                                <span x-text="(user.address?.city ||'') + ' - ' + (user.address?.street ||'') + ' - ' + (user.address?.suite ||'')"
+                                    :class="{ 'opacity-0' : !user.address}">
                                 </span>
                             </div>
                             <div class="my-1">
@@ -166,7 +167,9 @@
                             <td x-text="user.name"></td>
                             <td x-text="user.username"></td>
                             <td x-text="user.email"></td>
-                            <td x-text="user.address.city + ' - ' + user.address.street + ' - ' + user.address.suite"></td>
+                            <td x-text="(user.address?.city ||'') + ' - ' + (user.address?.street ||'') + ' - ' + (user.address?.suite ||'')"
+                                :class="{ 'opacity-0' : !user.address}">
+                            </td>
                             <td>
                                 <i class="fa-solid fa-pen text-primary mx-1 pointer hoverable-text scalable"
                                 @click="editUser(user.id)">
@@ -217,7 +220,7 @@
       
     <!-- #region add user modal -->
     <div class="add-user-modal-back" x-show="showAddUserModal" x-transition.opacity.duration.250ms
-    @click="showAddUserModal = false">
+    @click="handleHideAddUserModal">
         <div class="add-user-modal-box container bg-white rounde-top-30 px-4 pt-4 text-center"
         :class="{ 'show' : showAddUserModal }" @click.stop="">
             <h2>
@@ -240,9 +243,14 @@
                     x-model="newUserInfo.email" />
                     <i class="fa-solid fa-envelope input-icon"></i>
                 </div>
-                <div class="col-12 mt-5 mb-2">
+                <div class="col-12 mt-5">
+                    <div class="spinner-border text-primary" x-show="formIsLoading">
+                    </div>
+                </div>
+                <div class="col-12 mt-1 mb-2">
                     <button type="button" class="btn btn-primary w-100 max-width-250"
-                    @click="handleAddNewUser">
+                    @click="handleAddNewUser" :disabled="formIsLoading" 
+                    x-text="editMode ? 'Edit' : 'Submit'">
                         Submit
                     </button>
                 </div>
